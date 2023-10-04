@@ -1,42 +1,36 @@
-Python 3.11.1 (v3.11.1:a7a450f84a, Dec  6 2022, 15:24:06) [Clang 13.0.0 (clang-1300.0.29.30)] on darwin
-Type "help", "copyright", "credits" or "license()" for more information.
->>> # UDPPingerServer.py
-... #generate randomized lost packets
-... 
-... import socket
-... import random 
-... 
-... # Create a UDP socket
-... serverSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-... 
-... # Assign IP address and port number to socket
-... serverSocket.bind(('', 12000))
-... 
-... print('UDP server is listening...')
-... 
-... while True:
-...     # Generate random number in the range of 0 to 10
-...     rand = random.randint(0, 10)
-...     # Receive the client packet along with the address it is coming from
-...     message, address = serverSocket.recvfrom(1024)
-...     # Capitalize the message from the client
-...     message = message.upper()
-...     # If rand is less than 4, the packet lost and do not respond
-...     if rand < 4:
-...         continue
-...     # Otherwise, the server responds
-...     serverSocket.sendto(message, address)
-...     
-...     
-...     
-...     
-...     
-...     #client server
-... import time
-... import socket
-... 
-... 
-... # creating a socket object for UDP
+
+# UDPPingerServer.py
+#generate randomized lost packets
+
+import socket
+import random 
+
+# Create a UDP socket
+serverSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# Assign IP address and port number to socket
+serverSocket.bind(('', 12000))
+ 
+print('UDP server is listening...')
+ 
+while True:
+    # Generate random number in the range of 0 to 10
+    rand = random.randint(0, 10)
+    # Receive the client packet along with the address it is coming from
+    message, address = serverSocket.recvfrom(1024)
+    # Capitalize the message from the client
+    message = message.upper()
+     # If rand is less than 4, the packet lost and do not respond
+    if rand < 4:
+        continue
+    # Otherwise, the server responds
+    serverSocket.sendto(message, address)
+
+#client server
+import time
+import socket
+ 
+ # creating a socket object for UDP
 clientSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverName = ('localhost', 12000)  # server address and port number
 clientSocket.settimeout(1)  #considers a packet loss after 1 sec
